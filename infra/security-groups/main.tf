@@ -2,6 +2,7 @@ variable "ec2_sg_name" {}
 variable "vpc_id" {}
 variable "public_subnet_cidr_block" {}
 variable "ec2_sg_name_for_python_api" {}
+variable "private_subnet_cidr_block" {}
 
 output "sg_ec2_sg_ssh_http_id" {
   value = aws_security_group.ec2_sg_ssh_http.id
@@ -71,7 +72,8 @@ resource "aws_security_group" "rds_mysql_sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = var.public_subnet_cidr_block # replace with your EC2 instance security group CIDR block
+    # cidr_blocks = var.public_subnet_cidr_block # replace with your EC2 instance security group CIDR block
+    security_groups = [aws_security_group.ec2_sg_python_api.id]
   }
 }
 
@@ -87,6 +89,13 @@ resource "aws_security_group" "ec2_sg_python_api" {
     from_port   = 5000
     to_port     = 5000
     protocol    = "tcp"
+  }
+
+  egress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = var.private_subnet_cidr_block  # Allow outbound to RDS in private subnet
   }
 
   tags = {
