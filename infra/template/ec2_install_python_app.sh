@@ -9,6 +9,9 @@ sleep 20
 cd tfp1-python-app
 echo 'Install requirements'
 pip3 install -r requirements.txt
+# Update application code with RDS endpoint (using environment variable)
+echo "RDS endpoint: ${rds_endpoint}"
+export RDS_HOST=${rds_endpoint}
 echo 'Waiting for 30 seconds before running the app.py'
 sleep 30
 setsid python3 -u app.py &

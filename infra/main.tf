@@ -32,7 +32,7 @@ module "ec2" {
   sg_enable_ssh_https      = module.security_group.sg_ec2_sg_ssh_http_id
   ec2_sg_name_for_python_api     = module.security_group.sg_ec2_for_python_api
   enable_public_ip_address = true
-  user_data_install_python_app = templatefile("./template/ec2_install_python_app.sh", {})
+  user_data_install_python_app = templatefile("./template/ec2_install_python_app.sh", {rds_endpoint = module.rds_db_instance.rds_endpoint})
 }
 
 module "lb_target_group" {
