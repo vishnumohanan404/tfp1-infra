@@ -32,5 +32,6 @@ resource "aws_db_instance" "default" {
   apply_immediately       = true
   backup_retention_period = 0
   deletion_protection     = false
+  allow_major_version_upgrade = true
 }
 
