@@ -3,10 +3,10 @@
 cd /home/ubuntu
 yes | sudo apt update
 yes | sudo apt install python3 python3-pip
-git clone https://github.com/vishnumohanan404/tfp1-python-app.git
+git clone https://github.com/vishnumohanan404/devops-p1-python-app.git
 sleep 30
 # shellcheck disable=SC2164
-cd tfp1-python-app
+cd devops-p1-python-app
 echo 'Install requirements'
 pip3 install -r requirements.txt
 # Update application code with RDS endpoint (using environment variable)
